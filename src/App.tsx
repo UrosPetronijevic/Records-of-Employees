@@ -16,7 +16,7 @@ import AttendanceManagement from "./Components/Absence Components/AttendanceMana
 
 export default function App() {
   /////////////////////EMPLOYEES ARRAY
-  const [employees, SetEmployees] = useState<Employee[]>([]);
+  const [employees, setEmployees] = useState<Employee[]>([]);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /////////////////////NEW MEMBER TOGGLE
@@ -34,7 +34,19 @@ export default function App() {
         <main className="p-8">
           <Routes>
             <Route path="/" element={<Navigate to="/table1" />} />
-            <Route path="/table1" element={<Table1 />} />
+            <Route
+              path="/table1"
+              element={
+                <Table1
+                  setAbsence={setAbsence}
+                  absence={absence}
+                  newMember={newMember}
+                  setNewMember={setNewMember}
+                  employees={employees}
+                  setEmployees={setEmployees}
+                />
+              }
+            />
             <Route path="/table2" element={<Table2 />} />
             <Route path="/table3" element={<Table3 />} />
             <Route path="/table4" element={<Table4 />} />
@@ -43,7 +55,14 @@ export default function App() {
       </Router>
 
       {absence && <AttendanceManagement />}
-      {newMember && <NewMemberForm />}
+      {newMember && (
+        <NewMemberForm
+          newMember={newMember}
+          setNewMember={setNewMember}
+          employees={employees}
+          setEmployees={setEmployees}
+        />
+      )}
     </div>
   );
 }

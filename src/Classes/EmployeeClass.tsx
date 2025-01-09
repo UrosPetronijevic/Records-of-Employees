@@ -1,7 +1,7 @@
 export class Employee {
-  kadrovskiBroj: number;
-  imeZaposlenog: string;
-  prezimeZaposlenog: string;
+  kadrovskiBroj: number = 0;
+  imeZaposlenog: string = "";
+  prezimeZaposlenog: string = "";
   fondSati: number;
   datumPocetka: Date;
   datumZavrsetka: Date;
@@ -21,18 +21,10 @@ export class Employee {
   verskiPraznikArr: number[] = [];
   slavaArr: number[] = [];
 
-  constructor(
-    kadrovskiBroj: number,
-    imeZaposlenog: string,
-    prezimeZaposlenog: string
-  ) {
+  constructor() {
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth();
-
-    this.kadrovskiBroj = kadrovskiBroj;
-    this.imeZaposlenog = imeZaposlenog;
-    this.prezimeZaposlenog = prezimeZaposlenog;
 
     // Calculate start and end dates for the current month
     this.datumPocetka = new Date(year, month, 1);
