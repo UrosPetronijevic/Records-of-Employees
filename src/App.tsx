@@ -10,10 +10,23 @@ import Table2 from "./Components/Table Components/Table2";
 import Table3 from "./Components/Table Components/Table3";
 import Table4 from "./Components/Table Components/Table4";
 import { Employee } from "./Classes/EmployeeClass";
+import { useState } from "react";
+import NewMemberForm from "./Components/New Member Components/NewMemberForm";
+import AttendanceManagement from "./Components/Absence Components/AttendanceManagement";
 
 export default function App() {
-  const employee = new Employee(12345, "John", "Doe");
-  console.log(employee);
+  /////////////////////EMPLOYEES ARRAY
+  const [employees, SetEmployees] = useState<Employee[]>([]);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////NEW MEMBER TOGGLE
+  const [newMember, setNewMember] = useState<boolean>(false);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////ABSENCE TOGGLE
+  const [absence, setAbsence] = useState<boolean>(false);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <div className="font-bold text-slate-700">
       <Router>
@@ -28,6 +41,9 @@ export default function App() {
           </Routes>
         </main>
       </Router>
+
+      {absence && <AttendanceManagement />}
+      {newMember && <NewMemberForm />}
     </div>
   );
 }
