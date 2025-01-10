@@ -14,20 +14,42 @@ export default function NewMemberForm({
   // employees,
   setEmployees,
 }: NewMemberFormProps) {
-  //////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const [employee, setEmployee] = useState<Employee>(new Employee());
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////HANDLE FORM SUBMIT ACTION
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    //Change the employee object
+    // setEmployee((prev)=>{prev})
 
     // Add new employee to the list
     setEmployees((prev) => [...prev, employee]);
 
     // Reset form and close modal
-
     setNewMember(false);
   };
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  ////////////HANDLE INPUT CHANGE IN LABEL
+  const handleInputChange = <T extends keyof Employee>(
+    key: T,
+    value: Employee[T]
+  ) => {
+    setEmployee((prev) => {
+      const updatedEmployee = new Employee();
+      Object.assign(updatedEmployee, prev); // Copy previous properties
+      updatedEmployee[key] = value; // Update the specific property
+      return updatedEmployee;
+    });
+  };
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div className="absolute inset-0 bg-slate-700/90 flex justify-center items-center flex-col p-4 backdrop-blur-sm">
@@ -51,24 +73,39 @@ export default function NewMemberForm({
               <label className="flex gap-1 flex-col">
                 Ime:
                 <input
+                  placeholder="Petar"
                   type="text"
                   className="rounded-[.3rem] h-10 border-slate-300 border px-2"
+                  value={employee.imeZaposlenog}
+                  onChange={(e) =>
+                    handleInputChange("imeZaposlenog", e.target.value)
+                  }
                 />
               </label>
 
               <label className="flex gap-1 flex-col">
                 Prezime:
                 <input
+                  placeholder="Petrovic"
                   type="text"
                   className="rounded-[.3rem] h-10 border-slate-300 border px-2"
+                  value={employee.prezimeZaposlenog}
+                  onChange={(e) =>
+                    handleInputChange("prezimeZaposlenog", e.target.value)
+                  }
                 />
               </label>
 
               <label className="flex gap-1 flex-col">
                 Br.:
                 <input
-                  type="text"
+                  placeholder="123"
+                  type="number"
                   className="rounded-[.3rem] h-10 border-slate-300 border px-2"
+                  value={employee.kadrovskiBroj}
+                  onChange={(e) =>
+                    handleInputChange("kadrovskiBroj", +e.target.value)
+                  }
                 />
               </label>
 

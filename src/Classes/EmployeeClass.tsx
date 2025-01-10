@@ -1,5 +1,5 @@
 export class Employee {
-  kadrovskiBroj: number = 0;
+  kadrovskiBroj: number | undefined = undefined;
   imeZaposlenog: string = "";
   prezimeZaposlenog: string = "";
   fondSati: number;
