@@ -55,7 +55,11 @@ export default function App() {
       </Router>
 
       {absence && (
-        <AttendanceManagement setAbsence={setAbsence} absence={absence} />
+        <AttendanceManagement
+          setAbsence={setAbsence}
+          absence={absence}
+          employees={employees}
+        />
       )}
       {newMember && (
         <NewMemberForm
