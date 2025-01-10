@@ -24,9 +24,6 @@ export default function NewMemberForm({
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    //Change the employee object
-    // setEmployee((prev)=>{prev})
-
     // Add new employee to the list
     setEmployees((prev) => [...prev, employee]);
 
@@ -104,7 +101,7 @@ export default function NewMemberForm({
                   className="rounded-[.3rem] h-10 border-slate-300 border px-2"
                   value={employee.kadrovskiBroj}
                   onChange={(e) =>
-                    handleInputChange("kadrovskiBroj", +e.target.value)
+                    handleInputChange("kadrovskiBroj", e.target.value)
                   }
                 />
               </label>

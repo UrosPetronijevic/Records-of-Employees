@@ -1,5 +1,5 @@
 export class Employee {
-  kadrovskiBroj: number | undefined = undefined;
+  kadrovskiBroj: string = "";
   imeZaposlenog: string = "";
   prezimeZaposlenog: string = "";
   fondSati: number;
@@ -20,6 +20,7 @@ export class Employee {
   drzavniPraznikArr: number[] = [];
   verskiPraznikArr: number[] = [];
   slavaArr: number[] = [];
+  selectedDaysArr: number[] = [];
 
   constructor() {
     const today = new Date();
@@ -52,7 +53,7 @@ export class Employee {
   }
 
   // Method to get kadrovskiBroj (ID)
-  getId(): number {
+  getId(): string {
     return this.kadrovskiBroj;
   }
 }
