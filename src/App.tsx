@@ -27,6 +27,10 @@ export default function App() {
   const [absence, setAbsence] = useState<boolean>(false);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /////////////////////ABSENCE TOGGLE
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<string>("");
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <div className="font-bold text-slate-700">
       <Router>
@@ -44,6 +48,7 @@ export default function App() {
                   setNewMember={setNewMember}
                   employees={employees}
                   setEmployees={setEmployees}
+                  setSelectedEmployeeId={setSelectedEmployeeId}
                 />
               }
             />
@@ -59,6 +64,8 @@ export default function App() {
           setAbsence={setAbsence}
           absence={absence}
           employees={employees}
+          setEmployees={setEmployees}
+          selectedEmployeeId={selectedEmployeeId}
         />
       )}
       {newMember && (

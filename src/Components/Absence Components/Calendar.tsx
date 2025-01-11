@@ -1,6 +1,16 @@
-type CalendarProps = {};
+import { Employee } from "../../Classes/EmployeeClass";
 
-export default function Calendar({}: CalendarProps) {
+type CalendarProps = {
+  selectedEmployeeId: string;
+  employees: Employee[];
+  setEmployees: React.Dispatch<React.SetStateAction<Employee[]>>;
+};
+
+export default function Calendar({
+  selectedEmployeeId,
+  employees,
+  setEmployees,
+}: CalendarProps) {
   // Get the current date
   const today = new Date();
   const thisMonth = today.getMonth();
@@ -14,6 +24,25 @@ export default function Calendar({}: CalendarProps) {
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
+  const toggleDay = (day: number) => {
+    const updatedEmployees = employees.map((employee) => {
+      if (employee.getId() === selectedEmployeeId) {
+        const updatedDaysArr = employee.selectedDaysArr.includes(day)
+          ? employee.selectedDaysArr.filter((d) => d !== day) // Remove the day if it exists
+          : [...employee.selectedDaysArr, day]; // Add the day if it doesn't exist
+
+        // Return a new Employee instance with updated selectedDaysArr
+        return Object.assign(new Employee(), employee, {
+          selectedDaysArr: updatedDaysArr,
+        });
+      }
+      return employee;
+    });
+
+    setEmployees(updatedEmployees); // Update the state to trigger re-render
+  };
+
+  //////////////////////////////////////////////////////////////////////////////////////////
   return (
     <div className="w-[50%] text-slate-500 bg-slate-50 shadow-md flex flex-col justify-between p-8 rounded-md cursor-pointer border border-slate-500">
       <h1 className="self-center text-5xl">
@@ -23,8 +52,8 @@ export default function Calendar({}: CalendarProps) {
         {daysArray.map((day) => (
           <div
             key={day}
-            className={`flex p-4 shadow-md  justify-center items-center border border-slate-300 rounded-sm`}
-            onClick={() => {}}
+            className={`flex p-4 shadow-md  justify-center items-center border border-slate-300 rounded-sm text-[1.2rem] hover:bg-slate-300 hover:text-indigo-400`}
+            onClick={() => toggleDay(day)}
           >
             {day}
           </div>

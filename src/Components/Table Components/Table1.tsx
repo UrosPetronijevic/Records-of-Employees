@@ -7,6 +7,7 @@ type Table1Props = {
   setNewMember: React.Dispatch<React.SetStateAction<boolean>>;
   employees: Employee[]; // Array of Employee objects
   setEmployees: React.Dispatch<React.SetStateAction<Employee[]>>; // Function to update employees state
+  setSelectedEmployeeId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function Table1({
@@ -15,6 +16,7 @@ export default function Table1({
   employees,
   absence,
   setAbsence,
+  setSelectedEmployeeId,
 }: Table1Props) {
   const columns: string[] = [
     "Kadrovski broj",
@@ -55,6 +57,7 @@ export default function Table1({
               <td
                 className="border border-gray-300 px-4 py-2"
                 onClick={() => {
+                  setSelectedEmployeeId(employee.getId());
                   setAbsence(!absence);
                 }}
               >
