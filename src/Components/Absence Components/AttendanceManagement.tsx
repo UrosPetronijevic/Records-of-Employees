@@ -12,7 +12,6 @@ type AttendanceManagementProps = {
 
 export default function AttendanceManagement({
   setAbsence,
-  absence,
   employees,
   selectedEmployeeId,
   setEmployees,
@@ -36,9 +35,9 @@ export default function AttendanceManagement({
           employees={employees}
         />
         <Absences
-          setAbsence={setAbsence}
-          absence={absence}
+          setEmployees={setEmployees}
           employees={employees}
+          selectedEmployeeId={selectedEmployeeId}
         />
       </div>
     </div>

@@ -31,6 +31,8 @@ export default function App() {
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<string>("");
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  console.log(employees);
+
   return (
     <div className="font-bold text-slate-700">
       <Router>
