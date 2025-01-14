@@ -25,26 +25,7 @@ export default function Calendar({
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
-  const toggleDay = (day: number) => {
-    const updatedEmployees = employees.map((employee) => {
-      if (employee.getId() === selectedEmployeeId) {
-        const updatedDaysArr = employee.selectedDaysArr.includes(day)
-          ? employee.selectedDaysArr.filter((d) => d !== day) // Remove the day if it exists
-          : [...employee.selectedDaysArr, day]; // Add the day if it doesn't exist
-
-        // Return a new Employee instance with updated selectedDaysArr
-        return Object.assign(new Employee(), employee, {
-          selectedDaysArr: updatedDaysArr,
-        });
-      }
-      return employee;
-    });
-
-    setEmployees(updatedEmployees); // Update the state to trigger re-render
-  };
-
-  //////////////////////////////////////////////////////////////////////////////////////////
-
+  // Function to determine the color and interactivity of each day
   const getDayColor = (day: number): string => {
     const selectedEmployee = employees.find(
       (employee) => employee.getId() === selectedEmployeeId
@@ -52,10 +33,21 @@ export default function Calendar({
 
     if (!selectedEmployee) return "";
 
+    // Check if the day is a weekend or holiday and set to red
+    if (
+      selectedEmployee.weekendsArr.includes(day) ||
+      selectedEmployee.verskiPraznikArr.includes(day) ||
+      selectedEmployee.drzavniPraznikArr.includes(day)
+    ) {
+      return "bg-red-500 text-white cursor-not-allowed";
+    }
+
+    // Check if the day is selected
     if (selectedEmployee.selectedDaysArr.includes(day)) {
       return "bg-indigo-400 text-white";
     }
 
+    // Check other absence types
     for (const absence of absenceTypes) {
       const key = absence.key as keyof Employee;
       const array = selectedEmployee[key] as number[] | undefined;
@@ -69,13 +61,46 @@ export default function Calendar({
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
-  // Helper to check if a day is selected
-  const isDaySelected = (day: number): boolean => {
+  // Function to toggle day selection (excluding weekends and holidays)
+  const toggleDay = (day: number) => {
     const selectedEmployee = employees.find(
       (employee) => employee.getId() === selectedEmployeeId
     );
-    return selectedEmployee?.selectedDaysArr.includes(day) ?? false;
+
+    if (
+      !selectedEmployee ||
+      selectedEmployee.weekendsArr.includes(day) ||
+      selectedEmployee.verskiPraznikArr.includes(day) ||
+      selectedEmployee.drzavniPraznikArr.includes(day)
+    ) {
+      return; // Do nothing if day is in weekends or holidays
+    }
+
+    const updatedEmployees = employees.map((employee) => {
+      if (employee.getId() === selectedEmployeeId) {
+        const updatedDaysArr = employee.selectedDaysArr.includes(day)
+          ? employee.selectedDaysArr.filter((d) => d !== day) // Remove if already selected
+          : [...employee.selectedDaysArr, day]; // Add if not selected
+
+        return Object.assign(new Employee(), employee, {
+          selectedDaysArr: updatedDaysArr,
+        });
+      }
+      return employee;
+    });
+
+    setEmployees(updatedEmployees); // Update the state
   };
+
+  //////////////////////////////////////////////////////////////////////////////////////////
+
+  // // Helper to check if a day is selected
+  // const isDaySelected = (day: number): boolean => {
+  //   const selectedEmployee = employees.find(
+  //     (employee) => employee.getId() === selectedEmployeeId
+  //   );
+  //   return selectedEmployee?.selectedDaysArr.includes(day) ?? false;
+  // };
 
   //////////////////////////////////////////////////////////////////////////////////////////
   return (

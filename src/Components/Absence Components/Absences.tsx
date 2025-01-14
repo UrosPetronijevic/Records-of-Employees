@@ -80,12 +80,6 @@ export default function Absences({
           case "Bolovanje":
             targetArray = "bolovanjeArr";
             break;
-          case "Drzavni praznik":
-            targetArray = "drzavniPraznikArr";
-            break;
-          case "Verski praznik":
-            targetArray = "verskiPraznikArr";
-            break;
           case "Slava":
             targetArray = "slavaArr";
             break;
@@ -107,12 +101,7 @@ export default function Absences({
           updatedEmployee.bolovanjeArr = employee.bolovanjeArr.filter(
             (day) => !selectedDays.includes(day)
           );
-          updatedEmployee.drzavniPraznikArr = employee.drzavniPraznikArr.filter(
-            (day) => !selectedDays.includes(day)
-          );
-          updatedEmployee.verskiPraznikArr = employee.verskiPraznikArr.filter(
-            (day) => !selectedDays.includes(day)
-          );
+
           updatedEmployee.slavaArr = employee.slavaArr.filter(
             (day) => !selectedDays.includes(day)
           );
@@ -138,7 +127,7 @@ export default function Absences({
     <div className="w-[35%] bg-indigo-400 p-8 flex flex-col gap-10 rounded-lg backdrop-blur-sm cursor-pointer">
       <h1 className="text-5xl font-bold self-center">Odsustva</h1>
 
-      <ol className="h-full w-full flex flex-col text-2xl justify-center gap-5">
+      <ol className="h-full w-full flex flex-col text-2xl justify-center gap-10">
         {absenceTypes.map((absence) => (
           <li
             key={absence.type + absence.color}
