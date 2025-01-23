@@ -14,7 +14,7 @@ export const absenceTypes = [
   { type: "Slava", color: "bg-pink-300 text-white", key: "slavaArr" },
 ];
 
-const drzavniPraznici = [
+export const drzavniPraznici = [
   { mesec: "Januar", dani: [1, 2, 7] },
   { mesec: "Februar", dani: [15, 16, 17] },
   { mesec: "Mart", dani: [] },

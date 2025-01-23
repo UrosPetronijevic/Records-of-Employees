@@ -1,3 +1,5 @@
+import { drzavniPraznici } from "./StaticData";
+
 export class Employee {
   kadrovskiBroj: string = "";
   imeZaposlenog: string = "";
@@ -39,8 +41,16 @@ export class Employee {
     // Populate the weekendsArr with weekends (Saturdays and Sundays)
     this.populateWeekends();
 
+    // Populate state holidays based on the current month
+    this.populateDrzavniPraznici(month);
+
     // Calculate Orthodox Easter for the current year and populate verskiPraznikArr
     this.verskiPraznikArr = this.calculateOrthodoxEaster();
+  }
+
+  // Populate drzavniPraznikArr based on the current month
+  private populateDrzavniPraznici(month: number): void {
+    this.drzavniPraznikArr = drzavniPraznici[month].dani;
   }
 
   // Method to calculate working hours (8h/day excluding weekends)
@@ -75,7 +85,9 @@ export class Employee {
   }
 
   // Method to calculate Orthodox Easter for a given year (default: current year)
-  calculateOrthodoxEaster(year: number = new Date().getFullYear()): number[] {
+  private calculateOrthodoxEaster(
+    year: number = new Date().getFullYear()
+  ): number[] {
     const a = year % 19;
     const b = year % 7;
     const c = year % 4;
@@ -92,20 +104,23 @@ export class Employee {
     const easterDate = new Date(julianDate);
     easterDate.setDate(julianDate.getDate() + julianOffset);
 
-    // Array for Easter and surrounding days
-    const days = [
-      new Date(easterDate).setDate(easterDate.getDate() - 2), // Two days before
-      new Date(easterDate).setDate(easterDate.getDate() - 1), // One day before
-      easterDate.getTime(), // Easter day
-      new Date(easterDate).setDate(easterDate.getDate() + 1), // One day after
-    ];
+    // Check if Easter is in the current month
+    if (easterDate.getMonth() + 1 === this.datumPocetka.getMonth() + 1) {
+      // Array for Easter and surrounding days
+      const days = [
+        new Date(easterDate).setDate(easterDate.getDate() - 2), // Two days before
+        new Date(easterDate).setDate(easterDate.getDate() - 1), // One day before
+        easterDate.getTime(), // Easter day
+        new Date(easterDate).setDate(easterDate.getDate() + 1), // One day after
+      ];
 
-    // Filter to only include days in the current month
-    const validDays = days
-      .map((timestamp) => new Date(timestamp).getDate())
-      .filter((day) => day >= 1 && day <= this.datumZavrsetka.getDate());
+      // Filter to only include days in the current month
+      return days
+        .map((timestamp) => new Date(timestamp).getDate())
+        .filter((day) => day >= 1 && day <= this.datumZavrsetka.getDate());
+    }
 
-    return validDays;
+    return []; // Return an empty array if Easter is not in the current month
   }
 
   // Method to get kadrovskiBroj (ID)
