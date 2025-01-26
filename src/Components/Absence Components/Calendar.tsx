@@ -20,8 +20,27 @@ export default function Calendar({
   // Calculate the number of days in the current month
   const daysInMonth = new Date(thisYear, thisMonth + 1, 0).getDate();
 
+  // Get the weekday of the first day of the month (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+  const firstDayOfMonth = new Date(thisYear, thisMonth, 1).getDay();
+
+  // Calculate the number of empty slots before the first day (if first day is 3rd day of the week, we need 2 empty slots)
+  const emptySlots = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1; // Adjust for Monday being first day
+
   // Create an array of days for the current month
   const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  // Prepend empty slots to the beginning of the array
+  const calendarArray = [...Array(emptySlots).fill(null), ...daysArray];
+
+  const daysOfWeek = [
+    "Ponedeljak",
+    "Utorak",
+    "Sreda",
+    "Cetvrtak",
+    "Petak",
+    "Subota",
+    "Nedelja",
+  ];
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,12 +53,21 @@ export default function Calendar({
     if (!selectedEmployee) return "";
 
     // Check if the day is a weekend or holiday and set to red
-    if (
-      selectedEmployee.weekendsArr.includes(day) ||
-      selectedEmployee.verskiPraznikArr.includes(day) ||
-      selectedEmployee.drzavniPraznikArr.includes(day)
-    ) {
+    if (selectedEmployee.weekendsArr.includes(day)) {
       return "bg-red-500 text-white cursor-not-allowed";
+    }
+
+    if (selectedEmployee.drzavniPraznikArr.includes(day)) {
+      return "bg-[#23749d] text-white cursor-not-allowed";
+    }
+
+    if (selectedEmployee.verskiPraznikArr.includes(day)) {
+      return "bg-[#6b1a93] text-white cursor-not-allowed";
+    }
+
+    // Check if the day is null
+    if (day === null) {
+      return "cursor-not-allowed border-none shadow-none";
     }
 
     // Check if the day is selected
@@ -104,22 +132,31 @@ export default function Calendar({
 
   //////////////////////////////////////////////////////////////////////////////////////////
   return (
-    <div className="w-[50%] text-slate-500 bg-slate-50 shadow-md flex flex-col justify-between p-8 rounded-md cursor-pointer border border-slate-500">
+    <div className="w-[60%] text-slate-500 bg-slate-50 shadow-md flex flex-col gap-10 p-8 rounded-md cursor-pointer border border-slate-500">
       <h1 className="self-center text-5xl">
         {today.toLocaleString("default", { month: "long" })} {thisYear}
       </h1>
-      <div className="grid grid-cols-5 grid-rows-7 gap-2">
-        {daysArray.map((day) => (
-          <div
-            key={day}
-            className={`flex p-4 shadow-md justify-center items-center border border-slate-300 rounded-sm text-[1.2rem] ${getDayColor(
-              day
-            )}`}
-            onClick={() => toggleDay(day)}
-          >
-            {day}
-          </div>
-        ))}
+      <div className="flex flex-col gap-2">
+        <div className="grid grid-cols-7">
+          {daysOfWeek.map((dayOfWeek) => (
+            <div className="flex p-4 justify-center items-center rounded-sm text-[1.2rem] underline">
+              {dayOfWeek}
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-7 grid-rows-5 gap-2">
+          {calendarArray.map((day) => (
+            <div
+              key={day}
+              className={`flex p-4 shadow-md justify-center items-center border border-slate-300 rounded-sm text-[1.2rem] ${getDayColor(
+                day
+              )}`}
+              onClick={() => toggleDay(day)}
+            >
+              {day}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
