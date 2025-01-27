@@ -26,6 +26,9 @@ export class Employee {
   verskiPraznikArr: number[] = [];
   drzavniPraznikArr: number[] = [];
 
+  dodatnoOpt: boolean = false;
+  pripravnost: boolean = false;
+
   constructor() {
     const today = new Date();
     const year = today.getFullYear();
@@ -126,5 +129,13 @@ export class Employee {
   // Method to get kadrovskiBroj (ID)
   getId(): string {
     return this.kadrovskiBroj;
+  }
+
+  setDodatnoOpt(state: boolean) {
+    this.dodatnoOpt = state;
+  }
+
+  setPripravnost(state: boolean) {
+    this.pripravnost = state;
   }
 }

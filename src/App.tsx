@@ -55,7 +55,7 @@ export default function App() {
               }
             />
             <Route path="/table2" element={<Table2 />} />
-            <Route path="/table3" element={<Table3 />} />
+            <Route path="/table3" element={<Table3 employees={employees} />} />
             <Route path="/table4" element={<Table4 />} />
           </Routes>
         </main>

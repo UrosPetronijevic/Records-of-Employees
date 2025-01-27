@@ -1,5 +1,11 @@
 import { Employee } from "../../Classes/EmployeeClass";
-import { absenceTypes } from "../../Classes/StaticData";
+import {
+  absenceTypes,
+  calendarArray,
+  daysOfWeek,
+  thisYear,
+  today,
+} from "../../Classes/StaticData";
 
 type CalendarProps = {
   selectedEmployeeId: string;
@@ -12,36 +18,6 @@ export default function Calendar({
   employees,
   setEmployees,
 }: CalendarProps) {
-  // Get the current date
-  const today = new Date();
-  const thisMonth = today.getMonth();
-  const thisYear = today.getFullYear();
-
-  // Calculate the number of days in the current month
-  const daysInMonth = new Date(thisYear, thisMonth + 1, 0).getDate();
-
-  // Get the weekday of the first day of the month (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-  const firstDayOfMonth = new Date(thisYear, thisMonth, 1).getDay();
-
-  // Calculate the number of empty slots before the first day (if first day is 3rd day of the week, we need 2 empty slots)
-  const emptySlots = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1; // Adjust for Monday being first day
-
-  // Create an array of days for the current month
-  const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-
-  // Prepend empty slots to the beginning of the array
-  const calendarArray = [...Array(emptySlots).fill(null), ...daysArray];
-
-  const daysOfWeek = [
-    "Ponedeljak",
-    "Utorak",
-    "Sreda",
-    "Cetvrtak",
-    "Petak",
-    "Subota",
-    "Nedelja",
-  ];
-
   //////////////////////////////////////////////////////////////////////////////////////////
 
   // Function to determine the color and interactivity of each day

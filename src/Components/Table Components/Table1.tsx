@@ -50,7 +50,7 @@ export default function Table1({
         </thead>
         <tbody>
           {employees.map((employee, rowIndex) => (
-            <tr key={`row-${rowIndex}`}>
+            <tr key={`rowMor-${rowIndex}`}>
               <td className="border border-gray-300 px-4 py-2">
                 {employee.kadrovskiBroj}
               </td>
