@@ -1,5 +1,5 @@
 import { Employee } from "../../Classes/EmployeeClass";
-import { daysInMonth, thisMonth, thisYear } from "../../Classes/StaticData";
+import { thisMonth, thisYear } from "../../Classes/StaticData";
 
 type Table3Props = {
   employees: Employee[]; // Array of Employee objects
@@ -9,12 +9,13 @@ export default function Table3({ employees }: Table3Props) {
   // Get the last day of the current month
   const lastDayOfMonth = new Date(thisYear, thisMonth + 1, 0).getDate();
 
+  const emptyArr = Array.from({ length: lastDayOfMonth }, () => 0);
+
   // // Total number of columns is days in the current month + 4
   // const totalColumns = lastDayOfMonth + 4;
 
   // Column headers
   const columnHeaders = [
-    "Rb", // First column
     "Ime i prezime", // Second column
     "Sap br", // Third column
     ...[...Array(lastDayOfMonth)].map((_, index) => `${index + 1}`), // Dynamic columns for days
@@ -46,7 +47,7 @@ export default function Table3({ employees }: Table3Props) {
                 </td>
                 <td>{employee.kadrovskiBroj}</td>
 
-                {Array.from({ length: daysInMonth }, (_, index) => (
+                {emptyArr.map((_, index) => (
                   <td key={index} className="p-2 bg-red-500">
                     {employee.bolovanjeArr.includes(index + 1) ? 0 : 16}
                   </td>

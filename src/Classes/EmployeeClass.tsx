@@ -131,11 +131,11 @@ export class Employee {
     return this.kadrovskiBroj;
   }
 
-  setDodatnoOpt(state: boolean) {
-    this.dodatnoOpt = state;
+  setDodatnoOpt() {
+    this.dodatnoOpt = !this.dodatnoOpt;
   }
 
-  setPripravnost(state: boolean) {
-    this.pripravnost = state;
+  setPripravnost() {
+    this.pripravnost = !this.pripravnost;
   }
 }

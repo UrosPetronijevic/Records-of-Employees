@@ -114,16 +114,19 @@ export default function Calendar({
       </h1>
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-7">
-          {daysOfWeek.map((dayOfWeek) => (
-            <div className="flex p-4 justify-center items-center rounded-sm text-[1.2rem] underline">
+          {daysOfWeek.map((dayOfWeek, index) => (
+            <div
+              className="flex p-4 justify-center items-center rounded-sm text-[1.2rem] underline"
+              key={`${dayOfWeek} - ${index}`}
+            >
               {dayOfWeek}
             </div>
           ))}
         </div>
         <div className="grid grid-cols-7 grid-rows-5 gap-2">
-          {calendarArray.map((day) => (
+          {calendarArray.map((day, index) => (
             <div
-              key={day}
+              key={`${day}-${index}`}
               className={`flex p-4 shadow-md justify-center items-center border border-slate-300 rounded-sm text-[1.2rem] ${getDayColor(
                 day
               )}`}

@@ -18,6 +18,9 @@ export default function NewMemberForm({
 
   const [employee, setEmployee] = useState<Employee>(new Employee());
 
+  const [checkbox1, setCheckbox1] = useState(false);
+  const [checkbox2, setCheckbox2] = useState(false);
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   //////////////HANDLE FORM SUBMIT ACTION
@@ -44,6 +47,19 @@ export default function NewMemberForm({
       updatedEmployee[key] = value; // Update the specific property
       return updatedEmployee;
     });
+  };
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    if (name === "checkbox1") {
+      setCheckbox1(checked);
+      employee.setDodatnoOpt();
+    } else if (name === "checkbox2") {
+      setCheckbox2(checked);
+      employee.setPripravnost();
+    }
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,12 +123,37 @@ export default function NewMemberForm({
               </label>
 
               <div className="flex justify-between mt-4 text-white">
-                <button type="button" className="p-4 bg-indigo-500 rounded-md">
-                  Dodatno Opt.
-                </button>
-                <button type="button" className="p-4 bg-indigo-500 rounded-md">
-                  Pripravnost
-                </button>
+                <div
+                  className={`${
+                    checkbox1 ? "bg-green-500" : "bg-indigo-500"
+                  } rounded-md`}
+                >
+                  <label className=" p-4 flex gap-2">
+                    <input
+                      type="checkbox"
+                      name="checkbox1"
+                      checked={checkbox1}
+                      onChange={handleCheckboxChange}
+                    />
+                    <span className="select-none">Dodatno Opt.</span>
+                  </label>
+                </div>
+
+                <div
+                  className={`${
+                    checkbox2 ? "bg-green-500" : "bg-indigo-500"
+                  } rounded-md`}
+                >
+                  <label className="p-4 flex gap-2">
+                    <input
+                      type="checkbox"
+                      name="checkbox2"
+                      checked={checkbox2}
+                      onChange={handleCheckboxChange}
+                    />
+                    <span className=" select-none">Pripravnost</span>
+                  </label>
+                </div>
               </div>
             </div>
 
