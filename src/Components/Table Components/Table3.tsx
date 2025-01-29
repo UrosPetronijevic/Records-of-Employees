@@ -9,56 +9,43 @@ export default function Table3({ employees }: Table3Props) {
   // Get the last day of the current month
   const lastDayOfMonth = new Date(thisYear, thisMonth + 1, 0).getDate();
 
-  const emptyArr = Array.from({ length: lastDayOfMonth }, () => 0);
-
-  // // Total number of columns is days in the current month + 4
-  // const totalColumns = lastDayOfMonth + 4;
-
-  // Column headers
-  const columnHeaders = [
-    "Ime i prezime", // Second column
-    "Sap br", // Third column
-    ...[...Array(lastDayOfMonth)].map((_, index) => `${index + 1}`), // Dynamic columns for days
-    "Ukupno c.", // Last column
-  ];
+  const emptyArr = Array.from({ length: lastDayOfMonth }, () => 16);
 
   return (
-    <div>
-      <table className="w-full max-w-full table-auto border-collapse border border-gray-300">
+    <div className="overflow-x-auto">
+      <table className="table-auto w-full text-center">
         <thead>
           <tr>
-            {/* Dynamically create column headers */}
-            {columnHeaders.map((header, index) => (
-              <th
-                key={index}
-                className="border border-gray-300 bg-gray-100 p-2"
-              >
-                {header}
+            <th className="w-[147px] px-4 py-2 border">Ime i prezime</th>
+            <th className="w-[147px] px-4 py-2 border">SAP br</th>
+            {emptyArr.map((_, index) => (
+              <th key={index} className="w-[3%] py-2 border">
+                {index + 1}
               </th>
             ))}
+            <th className="w-[91px] px-4 py-2 border">Ukupno c.</th>
           </tr>
         </thead>
-        <tbody>
-          {employees.map((employee, rowIndex) =>
-            employee.pripravnost === true ? (
-              <tr key={`rowPripravnost-${rowIndex}`}>
-                <td>
-                  {employee.imeZaposlenog} {employee.prezimeZaposlenog}
+        <tbody className="text-slate-500">
+          {employees.map((employee, employeeIndex) => (
+            <tr key={`employee-${employeeIndex}`}>
+              <td className="w-[147px] px-4 py-2 border">
+                {employee.imeZaposlenog} {employee.prezimeZaposlenog}
+              </td>
+              <td className="w-[147px] px-4 py-2 border">
+                {employee.kadrovskiBroj}
+              </td>
+              {emptyArr.map((_, hourIndex) => (
+                <td
+                  key={`employee-${employeeIndex}-hours-${hourIndex}`}
+                  className="w-[3%] py-2 border"
+                >
+                  0
                 </td>
-                <td>{employee.kadrovskiBroj}</td>
-
-                {emptyArr.map((_, index) => (
-                  <td key={index} className="p-2 bg-red-500">
-                    {employee.bolovanjeArr.includes(index + 1) ? 0 : 16}
-                  </td>
-                ))}
-
-                <td>ukupno</td>
-              </tr>
-            ) : (
-              ""
-            )
-          )}
+              ))}
+              <td className="w-[91px] px-4 py-2 border">Fixed Last</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
