@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Employee } from "../../Classes/EmployeeClass";
+import GroupsForm from "./GroupsForm";
 
 type NewMemberFormProps = {
   newMember: boolean;
@@ -20,6 +21,10 @@ export default function NewMemberForm({
 
   const [checkbox1, setCheckbox1] = useState(false);
   const [checkbox2, setCheckbox2] = useState(false);
+
+  const [groups, setGroups] = useState<boolean>(false);
+
+  const [selectedType, setSelectedType] = useState<string>("");
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -64,8 +69,25 @@ export default function NewMemberForm({
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  // Function to handle the change in select dropdown
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+
+    // Set selectedType to the selected value
+    setSelectedType(selectedValue);
+
+    // Set groups to false if "Nije u grupi" is selected
+    if (selectedValue === "") {
+      setGroups(false);
+    } else {
+      setGroups(true); // Show GroupsForm if a group is selected
+    }
+  };
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
-    <div className="absolute inset-0 bg-slate-700/90 flex justify-center items-center flex-col p-4 backdrop-blur-sm">
+    <div className="absolute inset-0 bg-slate-700/90 flex justify-center items-center p-4 backdrop-blur-sm gap-4">
       <div className="w-[35%] bg-white flex flex-col p-1 items-center shadow-[4.0px_4.0px_4.0px_4.0px_rgba(0,0,0,0.18)] rounded-lg backdrop-blur-sm">
         <button
           className="text-slate-700 text-3xl w-fit self-end py-1 px-2 rounded-lg"
@@ -82,7 +104,7 @@ export default function NewMemberForm({
             onSubmit={handleFormSubmit}
             className="w-full flex flex-col h-full justify-between p-8 text-slate-700"
           >
-            <div className="flex flex-col justify-center h-max gap-10 text-[1rem] w-full">
+            <div className="flex flex-col justify-center h-max gap-8 text-[1rem] w-full">
               <label className="flex gap-1 flex-col">
                 Ime:
                 <input
@@ -121,6 +143,28 @@ export default function NewMemberForm({
                   }
                 />
               </label>
+
+              {employee.pripravnost && (
+                <label className="flex gap-1 flex-col">
+                  Izaberi:
+                  <select
+                    className="rounded-[.3rem] h-10 border-slate-300 border px-2"
+                    onChange={handleSelectChange} // Attach the handler here
+                  >
+                    <option value="">Nije u grupi</option>
+                    <option value="filijalaSakljucari">
+                      Filijala Sakljucari
+                    </option>
+                    <option value="ekspozituraSakljucari">
+                      Ekspozitura Sakljucari
+                    </option>
+                    <option value="komisija1">Komisija 1</option>
+                    <option value="komisija2">Komisija 2</option>
+                    <option value="nepredvidjeni">Nepredvidjeni</option>
+                    <option value="vozac">Vozac</option>
+                  </select>
+                </label>
+              )}
 
               <div className="flex justify-between mt-4 text-white">
                 <div
@@ -166,6 +210,7 @@ export default function NewMemberForm({
           </form>
         </div>
       </div>
+      {groups && <GroupsForm selectedType={selectedType} />}
     </div>
   );
 }
