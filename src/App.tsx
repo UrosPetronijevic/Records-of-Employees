@@ -11,9 +11,9 @@ import Table3 from "./Components/Table Components/Table3";
 import Table4 from "./Components/Table Components/Table4";
 import { Employee } from "./Classes/EmployeeClass";
 import { useState } from "react";
-import NewMemberForm from "./Components/New Member Components/NewMemberForm";
 import AttendanceManagement from "./Components/Absence Components/AttendanceManagement";
 import { Komisija, Sakljucari, Vozac } from "./Classes/PripravnostClasses";
+import NewMemberPage from "./Components/New Member Components/NewMemberPage";
 
 export default function App() {
   /////////////////////EMPLOYEES ARRAY
@@ -97,8 +97,7 @@ export default function App() {
         />
       )}
       {newMember && (
-        <NewMemberForm
-          newMember={newMember}
+        <NewMemberPage
           setNewMember={setNewMember}
           employees={employees}
           setEmployees={setEmployees}

@@ -8,7 +8,14 @@ export default function GroupsForm({ selectedType }: GroupsFormProps) {
       <h1 className="text-5xl font-thin text-slate-700">GROUPS</h1>
 
       <div className="h-max w-full flex flex-col-reverse p-4">
-        <form>{selectedType === "filijalaSakljucari" && <div></div>}</form>
+        <form>
+          {selectedType === "filijalaSakljucari" && <div></div>}
+          {selectedType === "filijalaSakljucari" && <div></div>}
+          {selectedType === "filijalaSakljucari" && <div></div>}
+          {selectedType === "filijalaSakljucari" && <div></div>}
+          {selectedType === "filijalaSakljucari" && <div></div>}
+          {selectedType === "filijalaSakljucari" && <div></div>}
+        </form>
       </div>
     </div>
   );
