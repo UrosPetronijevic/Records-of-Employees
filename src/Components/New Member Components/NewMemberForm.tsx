@@ -60,17 +60,6 @@ export default function NewMemberForm({
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, checked } = e.target;
-  //   if (name === "checkbox1") {
-  //     setCheckbox1(checked);
-  //     employee.setDodatnoOpt();
-  //   } else if (name === "checkbox2") {
-  //     setCheckbox2(checked);
-  //     employee.setPripravnost();
-  //   }
-  // };
-
   const handleCheckbox1 = () => {
     if (checkbox1 === false) {
       setCheckbox1(true);
@@ -117,7 +106,7 @@ export default function NewMemberForm({
               <input
                 placeholder="Petar"
                 type="text"
-                className="rounded-[.3rem] h-10 border-slate-300 border px-2"
+                className="rounded-[.3rem] py-2 border-slate-300 border px-2"
                 value={employee.imeZaposlenog}
                 onChange={(e) =>
                   handleInputChange("imeZaposlenog", e.target.value)
@@ -130,7 +119,7 @@ export default function NewMemberForm({
               <input
                 placeholder="Petrovic"
                 type="text"
-                className="rounded-[.3rem] h-10 border-slate-300 border px-2"
+                className="rounded-[.3rem] py-2 border-slate-300 border px-2"
                 value={employee.prezimeZaposlenog}
                 onChange={(e) =>
                   handleInputChange("prezimeZaposlenog", e.target.value)
@@ -143,7 +132,7 @@ export default function NewMemberForm({
               <input
                 placeholder="123"
                 type="number"
-                className="rounded-[.3rem] h-10 border-slate-300 border px-2"
+                className="rounded-[.3rem] py-2 border-slate-300 border px-2"
                 value={employee.kadrovskiBroj}
                 onChange={(e) =>
                   handleInputChange("kadrovskiBroj", e.target.value)
@@ -155,7 +144,7 @@ export default function NewMemberForm({
               <label className="flex gap-1 flex-col">
                 Izaberi:
                 <select
-                  className="rounded-[.3rem] h-10 border-slate-300 border px-2"
+                  className="rounded-[.3rem] py-2 border-slate-300 border px-2"
                   onChange={handleSelectChange} // Attach the handler here
                 >
                   <option value="">Nije u grupi</option>
@@ -186,7 +175,9 @@ export default function NewMemberForm({
                     checked={checkbox1}
                     onChange={handleCheckbox1}
                   />
-                  <span className="select-none">Dodatno Opt.</span>
+                  <span className="select-none cursor-pointer">
+                    Dodatno Opt.
+                  </span>
                 </label>
               </div>
 
@@ -202,7 +193,9 @@ export default function NewMemberForm({
                     checked={checkbox2}
                     onChange={handleCheckbox2}
                   />
-                  <span className=" select-none">Pripravnost</span>
+                  <span className="select-none cursor-pointer">
+                    Pripravnost
+                  </span>
                 </label>
               </div>
             </div>
@@ -210,7 +203,7 @@ export default function NewMemberForm({
 
           <button
             type="submit"
-            className="bg-slate-800 text-white px-8 py-4 mt-10 rounded-[.5rem]"
+            className="bg-slate-800 text-white px-8 py-4 mt-10 rounded-[.5rem] cursor-pointer"
           >
             Zavrsi
           </button>

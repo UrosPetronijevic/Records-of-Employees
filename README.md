@@ -82,3 +82,16 @@ vozac = [{vozac:kuki,zamenik:tuki}]
         ))}
       </div>
     </div>
+
+ <label className="flex gap-1 flex-col">
+                Izaberi:
+                <select
+                  className="rounded-[.3rem] h-10 border-slate-300 border px-2"
+                  onChange={() => {}} // Attach the handler here
+                >
+                  <option value="stalniSakljucar1">Stalni sakljucar 1</option>
+                  <option value="zamenaSakljucara1">Zamena sakljucara 1</option>
+                  <option value="stalniSakljucar1">Stalni sakljucar 2</option>
+                  <option value="zamenaSakljucara2">Zamena sakljucara 2</option>
+                </select>
+              </label>
