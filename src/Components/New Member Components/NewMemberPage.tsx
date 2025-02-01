@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Employee } from "../../Classes/EmployeeClass";
 import NewMemberForm from "./NewMemberForm";
-import GroupsForm from "./GroupsForm";
+import GroupsForm from "../Group components/GroupsForm";
 
 type NewMemberPageProps = {
   setNewMember: React.Dispatch<React.SetStateAction<boolean>>;

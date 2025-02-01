@@ -154,8 +154,12 @@ export default function NewMemberForm({
                   <option value="ekspozituraSakljucari">
                     Ekspozitura Sakljucari
                   </option>
-                  <option value="komisija1">Komisija 1</option>
-                  <option value="komisija2">Komisija 2</option>
+                  <option value="komisija1">
+                    Komisija za prijem i obradu amaneta
+                  </option>
+                  <option value="komisija2">
+                    Komisija za obradu i predaju amaneta
+                  </option>
                   <option value="nepredvidjeni">Nepredvidjeni</option>
                   <option value="vozac">Vozac</option>
                 </select>
