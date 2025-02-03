@@ -50,14 +50,14 @@ export default function App() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /////////////////////NEPREDVIDJENI
-  const [nepredvidjeni, setNepredvidjeni] = useState<string[]>([]);
+  const [nepredvidjeni, setNepredvidjeni] = useState<Employee[]>([]);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /////////////////////VOZAC
   const [vozac, setVozac] = useState<Vozac>(new Vozac());
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  console.log(employees);
+  console.log(employees, nepredvidjeni);
 
   return (
     <div className="font-bold text-slate-700">
@@ -101,6 +101,14 @@ export default function App() {
           setNewMember={setNewMember}
           employees={employees}
           setEmployees={setEmployees}
+          /////////////////////////
+          setFilijalaSakljucari={setFilijalaSakljucari}
+          setEkspozituraSakljucari={setEkspozituraSakljucari}
+          setKomisija1={setKomisija1}
+          setKomisija2={setKomisija2}
+          setNepredvidjeni={setNepredvidjeni}
+          nepredvidjeni={nepredvidjeni}
+          setVozac={setVozac}
         />
       )}
     </div>

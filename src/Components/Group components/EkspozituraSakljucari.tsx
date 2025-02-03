@@ -1,6 +1,13 @@
 import { useState } from "react";
+import { Sakljucari } from "../../Classes/PripravnostClasses";
 
-export default function EkspozituraSakljucari() {
+type EkspozituraSakljucariProps = {
+  setEkspozituraSakljucari: React.Dispatch<React.SetStateAction<Sakljucari>>;
+};
+
+export default function EkspozituraSakljucari({
+  setEkspozituraSakljucari,
+}: EkspozituraSakljucariProps) {
   const [sakljucar1, setSakljucar1] = useState<boolean>(false);
   const [zamenik1, setZamenik1] = useState<boolean>(false);
 
@@ -46,7 +53,7 @@ export default function EkspozituraSakljucari() {
       <div className="flex flex-col gap-8">
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            sakljucar1 ? "bg-[#FFF2AF] text-[#493D9E]" : "bg-[#B2A5FF]"
+            sakljucar1 ? "bg-[#FFF2AF] text-[#493d9e]" : "bg-[#B2A5FF]"
           } text-white ${
             sakljucar1 ? "hover:bg-[#DAD2FF]" : "hover:bg-[#493D9E]"
           }`}
@@ -56,7 +63,7 @@ export default function EkspozituraSakljucari() {
         </div>
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            zamenik1 ? "bg-[#FFF2AF] text-[#493D9E]" : "bg-[#B2A5FF]"
+            zamenik1 ? "bg-[#FFF2AF] text-[#493d9e]" : "bg-[#B2A5FF]"
           } text-white ${
             zamenik1 ? "hover:bg-[#DAD2FF]" : "hover:bg-[#493D9E]"
           }`}
@@ -69,7 +76,7 @@ export default function EkspozituraSakljucari() {
       <div className="flex flex-col gap-8">
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            sakljucar2 ? "bg-[#FFF2AF] text-[#493D9E]" : "bg-[#B2A5FF]"
+            sakljucar2 ? "bg-[#FFF2AF] text-[#493d9e]" : "bg-[#B2A5FF]"
           } text-white ${
             sakljucar2 ? "hover:bg-[#DAD2FF]" : "hover:bg-[#493D9E]"
           }`}
@@ -79,7 +86,7 @@ export default function EkspozituraSakljucari() {
         </div>
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            zamenik2 ? "bg-[#FFF2AF] text-[#493D9E]" : "bg-[#B2A5FF]"
+            zamenik2 ? "bg-[#FFF2AF] text-[#493d9e]" : "bg-[#B2A5FF]"
           } text-white ${
             zamenik2 ? "hover:bg-[#DAD2FF]" : "hover:bg-[#493D9E]"
           }`}

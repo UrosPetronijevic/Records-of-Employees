@@ -7,6 +7,9 @@ type NewMemberFormProps = {
   setEmployees: React.Dispatch<React.SetStateAction<Employee[]>>;
   handleSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 
+  employee: Employee;
+  setEmployee: React.Dispatch<React.SetStateAction<Employee>>;
+
   checkbox1: boolean;
   checkbox2: boolean;
   setCheckbox1: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,10 +28,11 @@ export default function NewMemberForm({
   setCheckbox1,
   setCheckbox2,
   setGroups,
+
+  employee,
+  setEmployee,
 }: NewMemberFormProps) {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  const [employee, setEmployee] = useState<Employee>(new Employee());
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -169,7 +173,7 @@ export default function NewMemberForm({
             <div className="flex justify-between mt-4 text-white">
               <div
                 className={`${
-                  checkbox1 ? "bg-green-500" : "bg-indigo-500"
+                  checkbox1 ? "bg-[#379777]" : "bg-[#F4CE14]"
                 } rounded-md`}
               >
                 <label className=" p-4 flex gap-2">
@@ -187,7 +191,7 @@ export default function NewMemberForm({
 
               <div
                 className={`${
-                  checkbox2 ? "bg-green-500" : "bg-indigo-500"
+                  checkbox2 ? "bg-[#379777]" : "bg-[#F4CE14]"
                 } rounded-md`}
               >
                 <label className="p-4 flex gap-2">
@@ -208,6 +212,9 @@ export default function NewMemberForm({
           <button
             type="submit"
             className="bg-slate-800 text-white px-8 py-4 mt-10 rounded-[.5rem] cursor-pointer"
+            onClick={() => {
+              setGroups(false);
+            }}
           >
             Zavrsi
           </button>

@@ -2,17 +2,33 @@ import { useState } from "react";
 import { Employee } from "../../Classes/EmployeeClass";
 import NewMemberForm from "./NewMemberForm";
 import GroupsForm from "../Group components/GroupsForm";
+import { Komisija, Sakljucari, Vozac } from "../../Classes/PripravnostClasses";
 
 type NewMemberPageProps = {
   setNewMember: React.Dispatch<React.SetStateAction<boolean>>;
   employees: Employee[];
   setEmployees: React.Dispatch<React.SetStateAction<Employee[]>>;
+
+  setFilijalaSakljucari: React.Dispatch<React.SetStateAction<Sakljucari>>;
+  setEkspozituraSakljucari: React.Dispatch<React.SetStateAction<Sakljucari>>;
+  setKomisija1: React.Dispatch<React.SetStateAction<Komisija>>;
+  setKomisija2: React.Dispatch<React.SetStateAction<Komisija>>;
+  setNepredvidjeni: React.Dispatch<React.SetStateAction<Employee[]>>;
+  nepredvidjeni: Employee[];
+  setVozac: React.Dispatch<React.SetStateAction<Vozac>>;
 };
 
 export default function NewMemberPage({
   setNewMember,
   employees,
   setEmployees,
+  setFilijalaSakljucari,
+  setEkspozituraSakljucari,
+  setKomisija1,
+  setKomisija2,
+  setNepredvidjeni,
+  nepredvidjeni,
+  setVozac,
 }: NewMemberPageProps) {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const [groups, setGroups] = useState<boolean>(false);
@@ -21,6 +37,8 @@ export default function NewMemberPage({
 
   const [checkbox1, setCheckbox1] = useState(false);
   const [checkbox2, setCheckbox2] = useState(false);
+
+  const [employee, setEmployee] = useState<Employee>(new Employee());
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -48,6 +66,9 @@ export default function NewMemberPage({
         setNewMember={setNewMember}
         employees={employees}
         setEmployees={setEmployees}
+        setEmployee={setEmployee}
+        employee={employee}
+        /////////////////////////////////
         handleSelectChange={handleSelectChange}
         checkbox1={checkbox1}
         checkbox2={checkbox2}
@@ -56,7 +77,19 @@ export default function NewMemberPage({
         setGroups={setGroups}
       />
 
-      {groups && <GroupsForm selectedType={selectedType} />}
+      {groups && (
+        <GroupsForm
+          selectedType={selectedType}
+          employee={employee}
+          setFilijalaSakljucari={setFilijalaSakljucari}
+          setEkspozituraSakljucari={setEkspozituraSakljucari}
+          setKomisija1={setKomisija1}
+          setKomisija2={setKomisija2}
+          setNepredvidjeni={setNepredvidjeni}
+          nepredvidjeni={nepredvidjeni}
+          setVozac={setVozac}
+        />
+      )}
     </div>
   );
 }

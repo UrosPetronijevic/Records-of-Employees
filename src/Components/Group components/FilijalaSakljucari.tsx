@@ -1,6 +1,13 @@
 import { useState } from "react";
+import { Sakljucari } from "../../Classes/PripravnostClasses";
 
-export default function FilijalaSakljucari() {
+type FilijalaSakljucariProps = {
+  setFilijalaSakljucari: React.Dispatch<React.SetStateAction<Sakljucari>>;
+};
+
+export default function FilijalaSakljucari({
+  setFilijalaSakljucari,
+}: FilijalaSakljucariProps) {
   const [sakljucar1, setSakljucar1] = useState<boolean>(false);
   const [zamenik1, setZamenik1] = useState<boolean>(false);
 

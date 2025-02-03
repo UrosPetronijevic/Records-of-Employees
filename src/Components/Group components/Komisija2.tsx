@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Komisija } from "../../Classes/PripravnostClasses";
 
-type Komisija1Props = {
-  setKomisija1: React.Dispatch<React.SetStateAction<Komisija>>;
+type Komisija2Props = {
+  setKomisija2: React.Dispatch<React.SetStateAction<Komisija>>;
 };
 
-export default function Komisija1({ setKomisija1 }: Komisija1Props) {
+export default function Komisija2({ setKomisija2 }: Komisija2Props) {
   const [predsednikKomisije, setPredsednikKomisije] = useState<boolean>(false);
   const [zamenikPredsednika, setZamenikPredsednika] = useState<boolean>(false);
 
@@ -94,9 +94,11 @@ export default function Komisija1({ setKomisija1 }: Komisija1Props) {
       <div className="flex flex-col gap-4">
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            predsednikKomisije ? "bg-[#FFDAB3] text-[#574964]" : "bg-[#574964]"
+            predsednikKomisije ? "bg-[#FFEB00] text-[#344CB7]" : "bg-[#577BC1]"
           } text-white ${
-            predsednikKomisije ? "hover:bg-[#C8AAAA]" : "hover:bg-[#9F8383]"
+            predsednikKomisije
+              ? "hover:bg-[#344CB7] hover:text-white"
+              : "hover:bg-[#000957]"
           }`}
           onClick={() => handleSelect("predsednikKomisije")}
         >
@@ -104,9 +106,11 @@ export default function Komisija1({ setKomisija1 }: Komisija1Props) {
         </div>
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            zamenikPredsednika ? "bg-[#FFDAB3] text-[#574964]" : "bg-[#574964]"
+            zamenikPredsednika ? "bg-[#FFEB00] text-[#344CB7]" : "bg-[#577BC1]"
           } text-white ${
-            zamenikPredsednika ? "hover:bg-[#C8AAAA]" : "hover:bg-[#9F8383]"
+            zamenikPredsednika
+              ? "hover:bg-[#344CB7] hover:text-white"
+              : "hover:bg-[#000957]"
           }`}
           onClick={() => handleSelect("zamenikPredsednika")}
         >
@@ -117,46 +121,54 @@ export default function Komisija1({ setKomisija1 }: Komisija1Props) {
       <div className="flex flex-col gap-4">
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            clanKomisije2 ? "bg-[#FFDAB3] text-[#574964]" : "bg-[#574964]"
+            clanKomisije2 ? "bg-[#FFEB00] text-[#344CB7]" : "bg-[#577BC1]"
           } text-white ${
-            clanKomisije2 ? "hover:bg-[#C8AAAA]" : "hover:bg-[#9F8383]"
+            clanKomisije2
+              ? "hover:bg-[#344CB7] hover:text-white"
+              : "hover:bg-[#000957]"
           }`}
           onClick={() => handleSelect("clanKomisije2")}
         >
-          Clan 2 komisije
+          Predsednik komisije
         </div>
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            zamenikClana2 ? "bg-[#FFDAB3] text-[#574964]" : "bg-[#574964]"
+            zamenikClana2 ? "bg-[#FFEB00] text-[#344CB7]" : "bg-[#577BC1]"
           } text-white ${
-            zamenikClana2 ? "hover:bg-[#C8AAAA]" : "hover:bg-[#9F8383]"
+            zamenikClana2
+              ? "hover:bg-[#344CB7] hover:text-white"
+              : "hover:bg-[#000957]"
           }`}
           onClick={() => handleSelect("zamenikClana2")}
         >
-          Zamenik clana 2
+          Zamenik predsednika
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            clanKomisije3 ? "bg-[#FFDAB3] text-[#574964]" : "bg-[#574964]"
+            clanKomisije3 ? "bg-[#FFEB00] text-[#344CB7]" : "bg-[#577BC1]"
           } text-white ${
-            clanKomisije3 ? "hover:bg-[#C8AAAA]" : "hover:bg-[#9F8383]"
+            clanKomisije3
+              ? "hover:bg-[#344CB7] hover:text-white"
+              : "hover:bg-[#000957]"
           }`}
           onClick={() => handleSelect("clanKomisije3")}
         >
-          Clan 3 komisije
+          Predsednik komisije
         </div>
         <div
           className={`rounded-[.5rem] py-4 border-slate-300 border px-2 text-center cursor-pointer select-none ${
-            zamenikClana3 ? "bg-[#FFDAB3] text-[#574964]" : "bg-[#574964]"
+            zamenikClana3 ? "bg-[#FFEB00] text-[#344CB7]" : "bg-[#577BC1]"
           } text-white ${
-            zamenikClana3 ? "hover:bg-[#C8AAAA]" : "hover:bg-[#9F8383]"
+            zamenikClana3
+              ? "hover:bg-[#344CB7] hover:text-white"
+              : "hover:bg-[#000957]"
           }`}
           onClick={() => handleSelect("zamenikClana3")}
         >
-          Zamenik clana 3
+          Zamenik predsednika
         </div>
       </div>
 
