@@ -31,9 +31,9 @@ export default function GroupsForm({
   nepredvidjeni,
   setVozac,
 }: GroupsFormProps) {
-  console.log(selectedType);
+  // console.log(selectedType);
   return (
-    <div className="w-[35%] bg-white flex flex-col p-4 items-center shadow-[4.0px_4.0px_4.0px_4.0px_rgba(0,0,0,0.18)] rounded-lg backdrop-blur-sm">
+    <div className="w-[45%] bg-white flex flex-col p-4 items-center shadow-[4.0px_4.0px_4.0px_4.0px_rgba(0,0,0,0.18)] rounded-lg backdrop-blur-sm">
       <h1 className="text-[2.5rem] text-slate-700 font-bold">
         {selectedType === "filijalaSakljucari" && "SAKLJUCARI FILIJALA"}
         {selectedType === "ekspozituraSakljucari" && "SAKLJUCARI EKS."}
@@ -45,37 +45,39 @@ export default function GroupsForm({
         {selectedType === "vozac" && "VOZAC"}
       </h1>
 
-      <div className="h-max w-full flex flex-col-reverse p-4">
-        <form className="w-full flex flex-col h-full justify-between p-8 text-slate-700">
-          {selectedType === "filijalaSakljucari" && (
-            <FilijalaSakljucari setFilijalaSakljucari={setFilijalaSakljucari} />
-          )}
+      <form className="w-full flex flex-col h-full justify-between p-8 text-slate-700">
+        {selectedType === "filijalaSakljucari" && (
+          <FilijalaSakljucari
+            setFilijalaSakljucari={setFilijalaSakljucari}
+            employee={employee}
+          />
+        )}
 
-          {selectedType === "ekspozituraSakljucari" && (
-            <EkspozituraSakljucari
-              setEkspozituraSakljucari={setEkspozituraSakljucari}
-            />
-          )}
+        {selectedType === "ekspozituraSakljucari" && (
+          <EkspozituraSakljucari
+            setEkspozituraSakljucari={setEkspozituraSakljucari}
+            employee={employee}
+          />
+        )}
 
-          {selectedType === "komisija1" && (
-            <Komisija1 setKomisija1={setKomisija1} />
-          )}
+        {selectedType === "komisija1" && (
+          <Komisija1 setKomisija1={setKomisija1} />
+        )}
 
-          {selectedType === "komisija2" && (
-            <Komisija2 setKomisija2={setKomisija2} />
-          )}
+        {selectedType === "komisija2" && (
+          <Komisija2 setKomisija2={setKomisija2} />
+        )}
 
-          {selectedType === "nepredvidjeni" && (
-            <Nepredvidjeni
-              employee={employee}
-              setNepredvidjeni={setNepredvidjeni}
-              nepredvidjeni={nepredvidjeni}
-            />
-          )}
+        {selectedType === "nepredvidjeni" && (
+          <Nepredvidjeni
+            employee={employee}
+            setNepredvidjeni={setNepredvidjeni}
+            nepredvidjeni={nepredvidjeni}
+          />
+        )}
 
-          {selectedType === "vozac" && <div></div>}
-        </form>
-      </div>
+        {selectedType === "vozac" && <div></div>}
+      </form>
     </div>
   );
 }

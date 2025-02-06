@@ -95,3 +95,144 @@ vozac = [{vozac:kuki,zamenik:tuki}]
                   <option value="zamenaSakljucara2">Zamena sakljucara 2</option>
                 </select>
               </label>
+
+// const handleSelect = (selected: string) => {
+// if (selected === "sakljucar1") {
+// setSakljucar1(!sakljucar1);
+// setZamenik1(false);
+// setZamenik3(false);
+// setNeodredjeni1(false);
+
+// setSakljucar2(false);
+// setZamenik2(false);
+// setZamenik4(false);
+// setNeodredjeni2(false);
+// }
+
+// if (selected === "zamenik1") {
+// setSakljucar1(false);
+// setZamenik1(!zamenik1);
+// setZamenik3(false);
+// setNeodredjeni1(false);
+
+// setSakljucar2(false);
+// setZamenik2(false);
+// setZamenik4(false);
+// setNeodredjeni2(false);
+// }
+
+// if (selected === "zamenik3") {
+// setSakljucar1(false);
+// setZamenik1(false);
+// setZamenik3(!zamenik3);
+// setNeodredjeni1(false);
+
+// setSakljucar2(false);
+// setZamenik2(false);
+// setZamenik4(false);
+// setNeodredjeni2(false);
+// }
+
+// if (selected === "neodredjeni1") {
+// setSakljucar1(false);
+// setZamenik1(false);
+// setZamenik3(false);
+// setNeodredjeni1(!neodredjeni1);
+
+// setSakljucar2(false);
+// setZamenik2(false);
+// setZamenik4(false);
+// setNeodredjeni2(false);
+// }
+
+// if (selected === "sakljucar2") {
+// setSakljucar1(false);
+// setZamenik1(false);
+// setZamenik3(false);
+// setNeodredjeni1(false);
+
+// setSakljucar2(!sakljucar2);
+// setZamenik2(false);
+// setZamenik4(false);
+// setNeodredjeni2(false);
+// }
+
+// if (selected === "zamenik2") {
+// setSakljucar1(false);
+// setZamenik1(false);
+// setZamenik3(false);
+// setNeodredjeni1(false);
+
+// setSakljucar2(false);
+// setZamenik2(!zamenik2);
+// setZamenik4(false);
+// setNeodredjeni2(false);
+// }
+
+// if (selected === "zamenik4") {
+// setSakljucar1(false);
+// setZamenik1(false);
+// setZamenik3(false);
+// setNeodredjeni1(false);
+
+// setSakljucar2(false);
+// setZamenik2(false);
+// setZamenik4(!zamenik4);
+// setNeodredjeni2(false);
+// }
+
+// if (selected === "neodredjeni2") {
+// setSakljucar1(false);
+// setZamenik1(false);
+// setZamenik3(false);
+// setNeodredjeni1(false);
+
+// setSakljucar2(false);
+// setZamenik2(false);
+// setZamenik4(false);
+// setNeodredjeni2(!neodredjeni2);
+// }
+// };
+
+const handleSelect = (selected: string) => {
+// Reset all states to false
+setSakljucar1(false);
+setZamenik1(false);
+setZamenik3(false);
+setNeodredjeni1(false);
+setSakljucar2(false);
+setZamenik2(false);
+setZamenik4(false);
+setNeodredjeni2(false);
+
+    // Toggle only the selected state
+    switch (selected) {
+      case "sakljucar1":
+        setSakljucar1((prev) => !prev);
+        break;
+      case "zamenik1":
+        setZamenik1((prev) => !prev);
+        break;
+      case "zamenik3":
+        setZamenik3((prev) => !prev);
+        break;
+      case "neodredjeni1":
+        setNeodredjeni1((prev) => !prev);
+        break;
+      case "sakljucar2":
+        setSakljucar2((prev) => !prev);
+        break;
+      case "zamenik2":
+        setZamenik2((prev) => !prev);
+        break;
+      case "zamenik4":
+        setZamenik4((prev) => !prev);
+        break;
+      case "neodredjeni2":
+        setNeodredjeni2((prev) => !prev);
+        break;
+      default:
+        break;
+    }
+
+};
