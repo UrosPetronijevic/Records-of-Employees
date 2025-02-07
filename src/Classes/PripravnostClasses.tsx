@@ -47,5 +47,14 @@ export class Vozac {
   vozac: string | null = null;
   zamenaVozaca: string | null = null;
 
-  setVozac(vozac: string) {}
+  setVozac(key: string, value: string) {
+    Object.keys(this).forEach((prop) => {
+      if ((this as any)[prop] === value) {
+        (this as any)[prop] = null;
+      }
+    });
+
+    if (key === "vozac") this.vozac = value;
+    if (key === "zamenaVozaca") this.zamenaVozaca = value;
+  }
 }

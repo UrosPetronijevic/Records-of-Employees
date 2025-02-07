@@ -5,6 +5,7 @@ import FilijalaSakljucari from "./FilijalaSakljucari";
 import Komisija1 from "./Komisija1";
 import Komisija2 from "./Komisija2";
 import Nepredvidjeni from "./Nepredvidjeni";
+import Vozaci from "./Vozaci";
 
 type GroupsFormProps = {
   selectedType: string;
@@ -76,7 +77,9 @@ export default function GroupsForm({
           />
         )}
 
-        {selectedType === "vozac" && <div></div>}
+        {selectedType === "vozac" && (
+          <Vozaci employee={employee} setVozac={setVozac} />
+        )}
       </form>
     </div>
   );

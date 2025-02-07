@@ -57,12 +57,14 @@ export default function App() {
   const [vozac, setVozac] = useState<Vozac>(new Vozac());
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  console.log(
-    employees,
-    nepredvidjeni,
+  console
+    .log
+    // employees,
+    // nepredvidjeni,
     // filijalaSakljucari,
-    ekspozituraSakljucari
-  );
+    // ekspozituraSakljucari,
+    // vozac
+    ();
 
   return (
     <div className="font-bold text-slate-700">
