@@ -61,9 +61,10 @@ export default function App() {
     .log
     // employees,
     // nepredvidjeni,
-    // filijalaSakljucari,
+
     // ekspozituraSakljucari,
     // vozac
+    // filijalaSakljucari
     ();
 
   return (
@@ -88,7 +89,20 @@ export default function App() {
               }
             />
             <Route path="/table2" element={<Table2 />} />
-            <Route path="/table3" element={<Table3 employees={employees} />} />
+            <Route
+              path="/table3"
+              element={
+                <Table3
+                  employees={employees}
+                  ////////////////////////////////////////
+                  filijalaSakljucari={filijalaSakljucari}
+                  ekspozituraSakljucari={ekspozituraSakljucari}
+                  komisija1={komisija1}
+                  komisija2={komisija2}
+                  vozac={vozac}
+                />
+              }
+            />
             <Route path="/table4" element={<Table4 />} />
           </Routes>
         </main>
