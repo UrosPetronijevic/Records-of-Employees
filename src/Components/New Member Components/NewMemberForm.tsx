@@ -33,21 +33,11 @@ export default function NewMemberForm({
   setEmployee,
 }: NewMemberFormProps) {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const [imeError, setImeError] = useState<string | null>(null);
+  const [prezimeError, setPrezimeError] = useState<string | null>(null);
+  const [brojError, setBrojError] = useState<string | null>(null);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  //////////////HANDLE FORM SUBMIT ACTION
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Add new employee to the list
-    setEmployees((prev) => [...prev, employee]);
-
-    // Reset form and close modal
-    setNewMember(false);
-  };
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   ////////////HANDLE INPUT CHANGE IN LABEL
   const handleInputChange = <T extends keyof Employee>(
@@ -60,6 +50,36 @@ export default function NewMemberForm({
       updatedEmployee[key] = value; // Update the specific property
       return updatedEmployee;
     });
+  };
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  ////////////VALIDATE ERROR
+  const validateForm = () => {
+    let isValid = true;
+
+    if (!employee.imeZaposlenog.trim()) {
+      setImeError("Ime je obavezno.");
+      isValid = false;
+    } else {
+      setImeError(null);
+    }
+
+    if (!employee.prezimeZaposlenog.trim()) {
+      setPrezimeError("Prezime je obavezno.");
+      isValid = false;
+    } else {
+      setPrezimeError(null);
+    }
+
+    if (!employee.kadrovskiBroj) {
+      setBrojError("Broj je obavezan.");
+      isValid = false;
+    } else {
+      setBrojError(null);
+    }
+
+    return isValid;
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,6 +103,20 @@ export default function NewMemberForm({
       employee.setPripravnost();
       setGroups(false);
     }
+  };
+
+  //////////////HANDLE FORM SUBMIT ACTION
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) return; // Stop submission if validation fails
+
+    setGroups(false);
+    // Add new employee to the list
+    setEmployees((prev) => [...prev, employee]);
+
+    // Reset form and close modal
+    setNewMember(false);
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -116,6 +150,7 @@ export default function NewMemberForm({
                   handleInputChange("imeZaposlenog", e.target.value)
                 }
               />
+              {imeError && <span className="text-red-500">{imeError}</span>}
             </label>
 
             <label className="flex gap-1 flex-col">
@@ -129,6 +164,9 @@ export default function NewMemberForm({
                   handleInputChange("prezimeZaposlenog", e.target.value)
                 }
               />
+              {prezimeError && (
+                <span className="text-red-500">{prezimeError}</span>
+              )}
             </label>
 
             <label className="flex gap-1 flex-col">
@@ -142,6 +180,7 @@ export default function NewMemberForm({
                   handleInputChange("kadrovskiBroj", e.target.value)
                 }
               />
+              {brojError && <span className="text-red-500">{brojError}</span>}
             </label>
 
             {employee.pripravnost && (
@@ -212,9 +251,6 @@ export default function NewMemberForm({
           <button
             type="submit"
             className="bg-slate-800 text-white px-8 py-4 mt-10 rounded-[.5rem] cursor-pointer"
-            onClick={() => {
-              setGroups(false);
-            }}
           >
             Zavrsi
           </button>

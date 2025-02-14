@@ -163,7 +163,9 @@ export default function FilijalaSakljucari({
       </div>
 
       <button
-        className="py-4 px-10 bg-[#F99417] text-white rounded-[.4rem]"
+        className="py-4 px-10 bg-[#F99417] text-white rounded-[.4rem] 
+             transition duration-150 ease-in-out 
+             active:bg-[#d87f12] active:translate-y-[15%]"
         onClick={(event) => {
           event.preventDefault(); // Prevents default form submission behavior
           handleSubmit(selected); // Calls your existing function

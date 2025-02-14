@@ -1,6 +1,6 @@
 import { Employee } from "./EmployeeClass";
 import { Komisija, Sakljucari, Vozac } from "./PripravnostClasses";
-import { daysInMonth } from "./StaticData";
+import { daysInMonth, drzavniPraznici } from "./StaticData";
 
 export const filijalaHours = (
   filijalaSakljucari: Sakljucari,
@@ -30,6 +30,12 @@ export const filijalaHours = (
   const totalDays = daysInMonth;
   let odsustva: (number | null)[] = []; // Allow null values in the array
 
+  // Get the current month as an index (0-based)
+  const currentMonthIndex = new Date().getMonth();
+
+  // Get the state holidays for the current month
+  const drzavniPraznikDani = drzavniPraznici[currentMonthIndex]?.dani || [];
+
   for (let day = 1; day <= totalDays; day++) {
     const currentDate = new Date(
       new Date().getFullYear(),
@@ -38,7 +44,7 @@ export const filijalaHours = (
     );
     const isWeekend = currentDate.getDay() === 0 || currentDate.getDay() === 6; // Sunday (0) or Saturday (6)
 
-    if (isWeekend) {
+    if (isWeekend || drzavniPraznikDani.includes(day)) {
       odsustva.push(null); // Push null for weekends
     } else if (fsg1.bolovanjeArr.includes(day)) {
       odsustva.push(0);
@@ -50,6 +56,10 @@ export const filijalaHours = (
       odsustva.push(0);
       if (odsustva.length > 1) {
         for (let i = odsustva.length - 1; i >= 0; i--) {
+          if (odsustva[i] === 8.5) {
+            odsustva[i] = 16;
+            break;
+          }
           if (odsustva[i] !== 0 && odsustva[i] !== null) {
             // Ensure we're not changing a null value
             odsustva[i] = 7.5;
@@ -60,12 +70,31 @@ export const filijalaHours = (
     } else {
       // Check if the previous day was a weekend (pushed null)
       if (
-        (odsustva.length > 0 && odsustva[odsustva.length - 1] === null) ||
         odsustva[odsustva.length - 1] === 8.5 ||
         odsustva[odsustva.length - 1] === 7.5 ||
         odsustva[odsustva.length - 1] === 16
       ) {
         odsustva.push(16);
+      } else if (
+        odsustva.length > 0 &&
+        odsustva[odsustva.length - 1] === null
+      ) {
+        for (let i = odsustva.length - 1; i >= 0; i--) {
+          if (
+            odsustva[i] === 7.5 ||
+            odsustva[i] === 8.5 ||
+            odsustva[i] === 16
+          ) {
+            odsustva.push(16);
+            break;
+          } else if (odsustva[i] === 0) {
+            odsustva.push(8.5);
+            break;
+          } else if (i === 0 && odsustva[i] === null) {
+            odsustva.push(8.5);
+            break;
+          }
+        }
       } else {
         odsustva.push(8.5);
       }
@@ -99,6 +128,23 @@ export const filijalaHours = (
       radniSatiZamenika1Gornje[radniSatiZamenika1Gornje.length - 1] === 16
     ) {
       radniSatiZamenika1Gornje.push(16);
+    } else if (
+      odsustva[i] === 0 &&
+      radniSatiZamenika1Gornje[radniSatiZamenika1Gornje.length - 1] === null
+    ) {
+      for (let i = radniSatiZamenika1Gornje.length - 1; i >= 0; i--) {
+        if (radniSatiZamenika1Gornje[i] === 0) {
+          radniSatiZamenika1Gornje.push(8.5);
+          break;
+        } else if (
+          radniSatiZamenika1Gornje[i] === 7.5 ||
+          radniSatiZamenika1Gornje[i] === 8.5 ||
+          radniSatiZamenika1Gornje[i] === 16
+        ) {
+          radniSatiZamenika1Gornje.push(16);
+          break;
+        }
+      }
     }
   }
 

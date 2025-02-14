@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Komisija } from "../../Classes/PripravnostClasses";
+import { Employee } from "../../Classes/EmployeeClass";
 
 type Komisija1Props = {
   setKomisija1: React.Dispatch<React.SetStateAction<Komisija>>;
+  employee: Employee;
 };
 
-export default function Komisija1({ setKomisija1 }: Komisija1Props) {
+export default function Komisija1({ setKomisija1, employee }: Komisija1Props) {
   const [predsednikKomisije, setPredsednikKomisije] = useState<boolean>(false);
   const [zamenikPredsednika, setZamenikPredsednika] = useState<boolean>(false);
 
@@ -15,78 +17,37 @@ export default function Komisija1({ setKomisija1 }: Komisija1Props) {
   const [clanKomisije3, setClanKomisije3] = useState<boolean>(false);
   const [zamenikClana3, setZamenikClana3] = useState<boolean>(false);
 
+  const [selected, setSelected] = useState<string>("");
+
   const handleSelect = (selected: string) => {
-    if (selected === "predsednikKomisije") {
-      setPredsednikKomisije(!predsednikKomisije);
+    const stateMap: {
+      [key: string]: React.Dispatch<React.SetStateAction<boolean>>;
+    } = {
+      predsednikKomisije: setPredsednikKomisije,
+      zamenikPredsednika: setZamenikPredsednika,
+      clanKomisije2: setClanKomisije2,
+      zamenikClana2: setZamenikClana2,
+      clanKomisije3: setClanKomisije3,
+      zamenikClana3: setZamenikClana3,
+    };
 
-      setZamenikPredsednika(false);
-
-      setClanKomisije2(false);
-      setZamenikClana2(false);
-
-      setClanKomisije3(false);
-      setZamenikClana3(false);
+    // If the selected key exists in the state map, toggle it and reset others
+    if (stateMap[selected]) {
+      Object.keys(stateMap).forEach((key) => {
+        stateMap[key](key === selected ? (prev) => !prev : false);
+      });
     }
 
-    if (selected === "zamenikPredsednika") {
-      setPredsednikKomisije(false);
+    setSelected(selected);
+  };
 
-      setZamenikPredsednika(!zamenikPredsednika);
-
-      setClanKomisije2(false);
-      setZamenikClana2(false);
-
-      setClanKomisije3(false);
-      setZamenikClana3(false);
-    }
-
-    if (selected === "clanKomisije2") {
-      setPredsednikKomisije(false);
-
-      setZamenikPredsednika(false);
-
-      setClanKomisije2(!clanKomisije2);
-      setZamenikClana2(false);
-
-      setClanKomisije3(false);
-      setZamenikClana3(false);
-    }
-
-    if (selected === "zamenikClana2") {
-      setPredsednikKomisije(false);
-
-      setZamenikPredsednika(false);
-
-      setClanKomisije2(false);
-      setZamenikClana2(!zamenikClana2);
-
-      setClanKomisije3(false);
-      setZamenikClana3(false);
-    }
-
-    if (selected === "clanKomisije3") {
-      setPredsednikKomisije(false);
-
-      setZamenikPredsednika(false);
-
-      setClanKomisije2(false);
-      setZamenikClana2(false);
-
-      setClanKomisije3(!clanKomisije3);
-      setZamenikClana3(false);
-    }
-
-    if (selected === "zamenikClana3") {
-      setPredsednikKomisije(false);
-
-      setZamenikPredsednika(false);
-
-      setClanKomisije2(false);
-      setZamenikClana2(false);
-
-      setClanKomisije3(false);
-      setZamenikClana3(!zamenikClana3);
-    }
+  const handleSubmit = (selected: string) => {
+    setKomisija1((prev) => {
+      const updated = new Komisija();
+      Object.assign(updated, prev); // Copy existing properties
+      updated.setKomisionar(selected, employee.kadrovskiBroj); // ✅ Modify the new object
+      return updated; // ✅ Return new object to trigger re-render
+    });
   };
 
   return (
@@ -161,8 +122,13 @@ export default function Komisija1({ setKomisija1 }: Komisija1Props) {
       </div>
 
       <button
-        type="submit"
-        className="py-4 px-10 bg-[#F99417] text-white rounded-[.4rem]"
+        className="py-4 px-10 bg-[#F99417] text-white rounded-[.4rem] 
+             transition duration-150 ease-in-out 
+             active:bg-[#d87f12] active:translate-y-[15%]"
+        onClick={(event) => {
+          event.preventDefault(); // Prevents default form submission behavior
+          handleSubmit(selected); // Calls your existing function
+        }}
       >
         Potvrdi
       </button>

@@ -32,15 +32,32 @@ export class Sakljucari {
 }
 
 export class Komisija {
-  clanKomisije1: string | null = null;
+  predsednikKomisije: string | null = null;
+  zamenikPredsednika: string | null = null;
+
   clanKomisije2: string | null = null;
+  zamenikClana2: string | null = null;
+
   clanKomisije3: string | null = null;
+  zamenikClana3: string | null = null;
 
-  zamenaClana1: string | null = null;
-  zamenaClana2: string | null = null;
-  zamenaClana3: string | null = null;
+  setKomisionar(key: string, value: string) {
+    // Remove the value from all properties if it exists
+    Object.keys(this).forEach((prop) => {
+      if ((this as any)[prop] === value) {
+        (this as any)[prop] = null;
+      }
+    });
 
-  setKomisionar(komisionar: string) {}
+    if (key === "predsednikKomisije") this.predsednikKomisije = value;
+    if (key === "zamenikPredsednika") this.zamenikPredsednika = value;
+
+    if (key === "clanKomisije2") this.clanKomisije2 = value;
+    if (key === "zamenikClana2") this.zamenikClana2 = value;
+
+    if (key === "clanKomisije3") this.clanKomisije3 = value;
+    if (key === "zamenikClana3") this.zamenikClana3 = value;
+  }
 }
 
 export class Vozac {

@@ -62,11 +62,11 @@ export default function GroupsForm({
         )}
 
         {selectedType === "komisija1" && (
-          <Komisija1 setKomisija1={setKomisija1} />
+          <Komisija1 setKomisija1={setKomisija1} employee={employee} />
         )}
 
         {selectedType === "komisija2" && (
-          <Komisija2 setKomisija2={setKomisija2} />
+          <Komisija2 setKomisija2={setKomisija2} employee={employee} />
         )}
 
         {selectedType === "nepredvidjeni" && (
