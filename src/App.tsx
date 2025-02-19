@@ -94,6 +94,7 @@ export default function App() {
               element={
                 <Table3
                   employees={employees}
+                  setEmployees={setEmployees}
                   ////////////////////////////////////////
                   filijalaSakljucari={filijalaSakljucari}
                   ekspozituraSakljucari={ekspozituraSakljucari}

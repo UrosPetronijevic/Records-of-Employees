@@ -4,7 +4,8 @@ import { daysInMonth, drzavniPraznici } from "./StaticData";
 
 export const filijalaHours = (
   filijalaSakljucari: Sakljucari,
-  employees: Employee[]
+  employees: Employee[],
+  setEmployees
 ) => {
   let radniSatiZamenika1Gornje: (number | null)[] = [];
   let radniSatiZamenika2Gornje: (number | null)[] = [];
@@ -101,6 +102,33 @@ export const filijalaHours = (
     }
   }
 
+  // if (fsg1) {
+  //   // Create a new array reference to trigger rerender
+  //   fsg1.setPripravnostSati([...odsustva]); // Spread to create a new reference
+  //   fsg1.setPripravnostTotal([...odsustva]); // Same here
+  // }
+  const filteredOdsustva = odsustva.filter(
+    (num): num is number => num !== null
+  );
+  const totalSum = filteredOdsustva.reduce((sum, num) => sum + num, 0);
+
+  const index = employees.findIndex(
+    (emp) => emp.kadrovskiBroj === fsg1.kadrovskiBroj
+  );
+
+  if (index !== -1) {
+    const updatedEmployees = [...employees]; // Clone the array
+    const employee = updatedEmployees[index]; // Get the existing Employee instance
+
+    // Update properties while keeping the class instance
+    employee.pripravnostSati = [...odsustva];
+    employee.pripravnostTotal = totalSum;
+
+    setEmployees(updatedEmployees);
+  }
+
+  ///////////////////////////////////////////////////////////
+
   console.log(fsg1, [...odsustva]);
 
   for (let i = 0; i < odsustva.length; i++) {
@@ -148,11 +176,7 @@ export const filijalaHours = (
     }
   }
 
-  console.log(
-    `Zamenik1: ${radniSatiZamenika1Gornje}`,
-    `Zamenik2: ${radniSatiZamenika2Gornje}`,
-    `Zamenik3: ${radniSatiNeodredjenogGornje}`
-  );
+  console.log("ZAMENIK1", [...radniSatiZamenika1Gornje]);
 };
 
 export const ekspozituraHours = (ekspozituraSakljucari, employees) => {};

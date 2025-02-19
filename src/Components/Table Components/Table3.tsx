@@ -12,6 +12,7 @@ import {
 
 type Table3Props = {
   employees: Employee[]; // Array of Employee objects
+  setEmployees: React.Dispatch<React.SetStateAction<Employee[]>>;
 
   filijalaSakljucari: Sakljucari;
   ekspozituraSakljucari: Sakljucari;
@@ -22,6 +23,7 @@ type Table3Props = {
 
 export default function Table3({
   employees,
+  setEmployees,
   filijalaSakljucari,
   ekspozituraSakljucari,
   komisija1,
@@ -35,7 +37,7 @@ export default function Table3({
   ////////////////////////////////////////////////////////////////////////////////////
 
   const calculateHours = () => {
-    filijalaHours(filijalaSakljucari, employees);
+    filijalaHours(filijalaSakljucari, employees, setEmployees);
 
     ekspozituraHours(ekspozituraSakljucari, employees);
 
@@ -48,7 +50,7 @@ export default function Table3({
 
   useEffect(() => {
     calculateHours();
-  }, []); // Empty dependency array ensures it runs only on mount
+  }, [employees]); // Empty dependency array ensures it runs only on mount
 
   ////////////////////////////////////////////////////////////////////////////////////
 
@@ -76,15 +78,19 @@ export default function Table3({
               <td className="w-[147px] px-4 py-2 border">
                 {employee.kadrovskiBroj}
               </td>
-              {emptyArr.map((_, hourIndex) => (
+
+              {employee.pripravnostSati.map((hour, hourIndex) => (
                 <td
                   key={`employee-${employeeIndex}-hours-${hourIndex}`}
                   className="w-[3%] py-2 border"
                 >
-                  0
+                  {hour}
                 </td>
               ))}
-              <td className="w-[91px] px-4 py-2 border">Fixed Last</td>
+
+              <td className="w-[91px] px-4 py-2 border">
+                {employee.pripravnostTotal}
+              </td>
             </tr>
           ))}
         </tbody>

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Employee } from "../../Classes/EmployeeClass";
 
 type Table1Props = {
@@ -14,10 +15,21 @@ export default function Table1({
   newMember,
   setNewMember,
   employees,
+  setEmployees,
   absence,
   setAbsence,
   setSelectedEmployeeId,
 }: Table1Props) {
+  useEffect(() => {
+    const updatedEmployees = employees.map((employee) => {
+      const updatedEmployee = new Employee();
+      Object.assign(updatedEmployee, employee);
+      updatedEmployee.setStats(); // Recalculate stats
+      return updatedEmployee;
+    });
+
+    setEmployees(updatedEmployees);
+  }, [employees, setEmployees]);
   const columns: string[] = [
     "Kadrovski broj",
     "Ime zapos./kandidata",

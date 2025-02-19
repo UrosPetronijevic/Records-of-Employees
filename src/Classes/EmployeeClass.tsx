@@ -29,6 +29,9 @@ export class Employee {
   dodatnoOpt: boolean = false;
   pripravnost: boolean = false;
 
+  pripravnostSati: (number | string | null)[] = [];
+  pripravnostTotal: number = 0;
+
   constructor() {
     const today = new Date();
     const year = today.getFullYear();
@@ -137,5 +140,25 @@ export class Employee {
 
   setPripravnost() {
     this.pripravnost = !this.pripravnost;
+  }
+
+  setPripravnostSati(hours: (number | string | null)[]) {
+    this.pripravnostSati = hours;
+  }
+
+  setPripravnostTotal(hours: (number | string | null)[]) {
+    let arr = [...hours].filter((hour) => hour !== null);
+    let sum = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+      sum += Number(arr[i]);
+    }
+
+    this.pripravnostTotal = sum;
+  }
+
+  setStats() {
+    this.godisnjiOdmor = this.godisnjiOdmorArr.length * 8;
+    this.placenoOdsustvo = this.placenoOdsustvoArr.length * 8;
   }
 }

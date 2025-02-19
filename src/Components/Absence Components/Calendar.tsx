@@ -86,8 +86,24 @@ export default function Calendar({
           ? employee.selectedDaysArr.filter((d) => d !== day) // Remove if already selected
           : [...employee.selectedDaysArr, day]; // Add if not selected
 
+        // Remove the day from other relevant arrays
+        const updatedGodisnjiOdmorArr = employee.godisnjiOdmorArr.filter(
+          (d) => d !== day
+        );
+        const updatedPlacenoOdsustvoArr = employee.placenoOdsustvoArr.filter(
+          (d) => d !== day
+        );
+        const updatedSlavaArr = employee.slavaArr.filter((d) => d !== day);
+        const updatedBolovanjeArr = employee.bolovanjeArr.filter(
+          (d) => d !== day
+        );
+
         return Object.assign(new Employee(), employee, {
           selectedDaysArr: updatedDaysArr,
+          godisnjiOdmorArr: updatedGodisnjiOdmorArr,
+          placenoOdsustvoArr: updatedPlacenoOdsustvoArr,
+          slavaArr: updatedSlavaArr,
+          bolovanjeArr: updatedBolovanjeArr,
         });
       }
       return employee;
@@ -95,7 +111,6 @@ export default function Calendar({
 
     setEmployees(updatedEmployees); // Update the state
   };
-
   //////////////////////////////////////////////////////////////////////////////////////////
 
   // // Helper to check if a day is selected
