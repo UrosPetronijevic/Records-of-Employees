@@ -1,10 +1,10 @@
-import { drzavniPraznici } from "./StaticData";
+import { drzavniPraznici, daysArray, thisMonth, thisYear } from "./StaticData";
 
 export class Employee {
   kadrovskiBroj: string = "";
   imeZaposlenog: string = "";
   prezimeZaposlenog: string = "";
-  fondSati: number;
+  fondSati: number = 0;
   datumPocetka: Date;
   datumZavrsetka: Date;
   redovanRad: number = 0;
@@ -33,22 +33,15 @@ export class Employee {
   pripravnostTotal: number = 0;
 
   constructor() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
-
     // Calculate start and end dates for the current month
-    this.datumPocetka = new Date(year, month, 1);
-    this.datumZavrsetka = new Date(year, month + 1, 0);
-
-    // Calculate fondSati (working hours in the current month, 8 hours per weekday)
-    this.fondSati = this.calculateFondSati();
+    this.datumPocetka = new Date(thisYear, thisMonth, 1);
+    this.datumZavrsetka = new Date(thisYear, thisMonth + 1, 0);
 
     // Populate the weekendsArr with weekends (Saturdays and Sundays)
     this.populateWeekends();
 
     // Populate state holidays based on the current month
-    this.populateDrzavniPraznici(month);
+    this.populateDrzavniPraznici(thisMonth);
 
     // Calculate Orthodox Easter for the current year and populate verskiPraznikArr
     this.verskiPraznikArr = this.calculateOrthodoxEaster();
@@ -57,23 +50,6 @@ export class Employee {
   // Populate drzavniPraznikArr based on the current month
   private populateDrzavniPraznici(month: number): void {
     this.drzavniPraznikArr = drzavniPraznici[month].dani;
-  }
-
-  // Method to calculate working hours (8h/day excluding weekends)
-  private calculateFondSati(): number {
-    let workingHours = 0;
-    const currentDate = new Date(this.datumPocetka);
-
-    while (currentDate <= this.datumZavrsetka) {
-      const dayOfWeek = currentDate.getDay();
-      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-        // Exclude Sundays (0) and Saturdays (6)
-        workingHours += 8;
-      }
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    return workingHours;
   }
 
   // Method to populate weekendsArr with weekends in the current month
@@ -160,5 +136,42 @@ export class Employee {
   setStats() {
     this.godisnjiOdmor = this.godisnjiOdmorArr.length * 8;
     this.placenoOdsustvo = this.placenoOdsustvoArr.length * 8;
+    this.drzavniVerskiPraznik =
+      (this.verskiPraznikArr.length + this.drzavniPraznikArr.length) * 8;
+  }
+
+  calculateWorkingHours() {
+    this.fondSati = 0; // Reset total working hours
+    this.redovanRad = 0; // Reset actual worked hours
+
+    for (const day of daysArray) {
+      const currentDate = new Date(thisYear, thisMonth, day);
+      const dayOfWeek = currentDate.getDay(); // 0 = Sunday, 6 = Saturday
+
+      // Calculate possible working hours (fondSati)
+      if (
+        dayOfWeek !== 0 && // Not Sunday
+        dayOfWeek !== 6 && // Not Saturday
+        !this.drzavniPraznikArr.includes(day) &&
+        !this.verskiPraznikArr.includes(day)
+      ) {
+        this.fondSati += 8;
+      }
+
+      // Calculate actual worked hours (redovanRad)
+      if (
+        dayOfWeek !== 0 && // Not Sunday
+        dayOfWeek !== 6 && // Not Saturday
+        !this.weekendsArr.includes(day) &&
+        !this.drzavniPraznikArr.includes(day) &&
+        !this.verskiPraznikArr.includes(day) &&
+        !this.godisnjiOdmorArr.includes(day) &&
+        !this.placenoOdsustvoArr.includes(day) &&
+        !this.bolovanjeArr.includes(day) &&
+        !this.slavaArr.includes(day)
+      ) {
+        this.redovanRad += 8;
+      }
+    }
   }
 }

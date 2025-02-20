@@ -186,3 +186,10 @@ export const komisija1Hours = (komisija1, employees) => {};
 export const komisija2Hours = (komisija2, employees) => {};
 
 export const vozacHours = (vozac, employees) => {};
+
+//   1   2    3   4  5
+// [16, 0, 0, 16,16];
+
+// godisnjiOdmor = [2]
+// slavaArr = []
+// x= 8.5

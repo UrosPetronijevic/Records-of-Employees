@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Employee } from "../../Classes/EmployeeClass";
 
 type Table1Props = {
@@ -15,21 +15,30 @@ export default function Table1({
   newMember,
   setNewMember,
   employees,
-  setEmployees,
   absence,
   setAbsence,
   setSelectedEmployeeId,
 }: Table1Props) {
-  useEffect(() => {
-    const updatedEmployees = employees.map((employee) => {
-      const updatedEmployee = new Employee();
-      Object.assign(updatedEmployee, employee);
-      updatedEmployee.setStats(); // Recalculate stats
-      return updatedEmployee;
-    });
+  // useEffect(() => {
+  //   const updatedEmployees = employees.map((employee) => {
+  //     const updatedEmployee = new Employee();
+  //     Object.assign(updatedEmployee, employee);
+  //     updatedEmployee.setStats(); // Recalculate stats
+  //     updatedEmployee.calculateWorkingHours(); // Recalculate stats
+  //     return updatedEmployee;
+  //   });
 
-    setEmployees(updatedEmployees);
-  }, [employees, setEmployees]);
+  //   setEmployees(updatedEmployees);
+  // }, [employees, setEmployees]);
+
+  const displayedEmployees = employees.map((employee) => {
+    const updatedEmployee = new Employee();
+    Object.assign(updatedEmployee, employee);
+    updatedEmployee.setStats();
+    updatedEmployee.calculateWorkingHours();
+    return updatedEmployee;
+  });
+
   const columns: string[] = [
     "Kadrovski broj",
     "Ime zapos./kandidata",
@@ -61,7 +70,7 @@ export default function Table1({
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee, rowIndex) => (
+          {displayedEmployees.map((employee, rowIndex) => (
             <tr key={`rowMor-${rowIndex}`}>
               <td className="border border-gray-300 px-4 py-2">
                 {employee.kadrovskiBroj}
